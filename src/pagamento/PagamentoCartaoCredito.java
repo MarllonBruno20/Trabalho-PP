@@ -8,11 +8,10 @@ public class PagamentoCartaoCredito implements  Pagamento{
         return valorFinal;
     }
 
-    public double processarPagamento(double valor, int qtdParcelas) {
-        double valorFinal = valor * 1.05;
-        double valorParcelado = valorFinal / qtdParcelas;
-        System.out.println("Processando pagamento com Cartão de Crédito. Valor parcelado: R$" + valorParcelado);
-        return valorParcelado;
+    public double processarPagamento(double valor, int parcelas) {
+        double taxaJuros = 0.02;
+        double valorFinal = valor * (1 + (taxaJuros * parcelas));
+        return valorFinal;
     }
 
     @Override

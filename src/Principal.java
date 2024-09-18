@@ -37,13 +37,13 @@ public class Principal {
         // AGENDAMENTOS
         Agendamento agendamento = new Agendamento(alvaro, carroAlvaro, servicoLavagemSimples, LocalDateTime.now());
         agendamento.setPagamento(pagamentoDinheiro);
-        agendamento.processarPagamento();
+        agendamento.processarPagamento(1);
         agendamento.exibirDetalhesAgendamento();
 
         System.out.println("\n");
         Agendamento agendamentoJefferson = new Agendamento(jefferson, carroJefferson, servicoPolimento, LocalDateTime.now());
         agendamentoJefferson.setPagamento(pagamentoCartaoCredito);
-        agendamentoJefferson.processarPagamento();
+        agendamentoJefferson.processarPagamento(3);
         agendamentoJefferson.exibirDetalhesAgendamento();
 
         // PARTE DO ADMINISTRADOR
@@ -60,10 +60,4 @@ public class Principal {
         }
     }
 }
-
-// Herança -> Usuário para usuario.UsuarioCliente e usuario.UsuarioAdministrador
-// Polimorfismo -> Pagamento pagamentoDinheiro = new PagamentoDinheiro();
-// Classe Abstrata -> ServicoLavaJato - define a estrutura genérica de um serviço
-// Método Abstrato -> ServicoLavaJato - calcularPrecoFinal();
-// Interface -> Pagamento - Define os métodos que precisam ter
 

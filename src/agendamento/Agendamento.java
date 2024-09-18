@@ -1,6 +1,7 @@
 package agendamento;
 
 import pagamento.Pagamento;
+import pagamento.PagamentoCartaoCredito;
 import servicos.ServicoLavaJato;
 import carro.Carro;
 import usuario.UsuarioCliente;
@@ -61,14 +62,23 @@ public class Agendamento {
         this.pagamento = pagamento;
     }
 
-    public void processarPagamento() {
+    public void processarPagamento(int parcelas) {
         if (pagamento != null) {
             double precoFinal = servico.calcularPrecoFinal(carro.getTipoCarro());
-            double precoComPagamento = pagamento.processarPagamento(precoFinal);
 
-            System.out.println("Serviço: " + servico.getDescricao() +
-                    " | Carro: " + carro.getModelo() +
-                    " | Preço Final: R$ " + precoComPagamento);
+            if (pagamento instanceof PagamentoCartaoCredito && parcelas > 1) {
+                PagamentoCartaoCredito pagamentoCartao = (PagamentoCartaoCredito) pagamento;
+                double precoComPagamentoParcelado = pagamentoCartao.processarPagamento(precoFinal, parcelas);
+                System.out.println("Serviço: " + servico.getDescricao() +
+                        " | Carro: " + carro.getModelo() +
+                        " | Preço Parcelado: R$ " + precoComPagamentoParcelado +
+                        " | Parcelas: " + parcelas);
+            } else {
+                double precoComPagamento = pagamento.processarPagamento(precoFinal);
+                System.out.println("Serviço: " + servico.getDescricao() +
+                        " | Carro: " + carro.getModelo() +
+                        " | Preço Final: R$ " + precoComPagamento);
+            }
         } else {
             System.out.println("Forma de pagamento não definida.");
         }
@@ -81,9 +91,8 @@ public class Agendamento {
         System.out.println("Serviço: " + servico.getDescricao());
         System.out.println("Data e Hora: " + dataHora);
         if (pagamento != null) {
-            double precoFinal = servico.calcularPrecoFinal(carro.getTipoCarro());
             System.out.println("Forma de pagamento: " + pagamento.getDescricaoMetodo());
-            System.out.println("Valor final: R$ " + pagamento.processarPagamento(precoFinal));
+            System.out.println("Valor final: R$ " + pagamento.processarPagamento(servico.calcularPrecoFinal(carro.getTipoCarro())));
         } else {
             System.out.println("Forma de pagamento ainda não definida.");
         }
