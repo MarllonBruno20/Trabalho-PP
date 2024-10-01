@@ -12,9 +12,7 @@ import servicos.LavagemSimples;
 import servicos.Polimento;
 import servicos.ServicoLavaJato;
 import carro.Carro;
-import usuario.Usuario;
-import usuario.UsuarioAdministrador;
-import usuario.UsuarioCliente;
+import usuario.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -75,6 +73,26 @@ public class Principal {
         for (Usuario usuario : usuarios) {
             System.out.println("Id: " + usuario.getId() + ", Nome: " + usuario.getNome() + ", Telefone: " + usuario.getTelefone());
         }
+
+
+        //Princípio de Substituição de Liskov
+        Funcionario func1 = new Funcionario("Alvaro", "3499823409823");
+        func1.setSalario(3000d);
+        System.out.println("Salario: " + func1.getSalario());
+        func1.calcularBonificacao(0.3);
+        System.out.println("Bonus: " + func1.getBonus());
+
+        Gerente func2 = new Gerente("Marllon", "3492410928412");
+        func2.setSalario(34000d);
+        System.out.println("Salario: " + func2.getSalario());
+        func2.calcularBonificacao(0.3);
+        System.out.println("Bonus: " + func2.getBonus());
+
+        Atendente func3 = new Atendente("Marllon", "3492410928412");
+        func3.setSalario(3200d);
+        System.out.println("Salario: " + func3.getSalario());
+        func3.calcularBonificacao(0.3);
+        System.out.println("Bonus: " + func3.getBonus());
     }
 }
 
