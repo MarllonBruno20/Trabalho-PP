@@ -1,13 +1,16 @@
-package servicos;
+package servicos.principais;
 
 import carro.TipoCarro;
 
-public class Polimento extends ServicoLavaJato{
-    public Polimento() {
-        super("Polimento");
-    }
+public class Polimento implements ServicoLavaJato {
+
     @Override
-    public double calcularPrecoFinal(TipoCarro tipoCarro) {
+    public String getDescricao() {
+        return "Serviço de polimento para o exterior do carro.";
+    }
+
+    @Override
+    public double calcularPreco(TipoCarro tipoCarro) {
         if (tipoCarro == TipoCarro.HATCH) {
             return 60.0;
         } else if (tipoCarro == TipoCarro.SEDA) {

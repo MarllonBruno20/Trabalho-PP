@@ -11,9 +11,10 @@ import pagamento.PagamentoCartaoDebito;
 import pagamento.PagamentoDinheiro;
 import produto.Produto;
 import produto.ProdutoLimpeza;
-import servicos.LavagemSimples;
-import servicos.Polimento;
-import servicos.ServicoLavaJato;
+import servicos.decorator.adicionais.CeraAdicional;
+import servicos.decorator.adicionais.LavagemMotor;
+import servicos.decorator.adicionais.LimpezaInternaPremium;
+import servicos.principais.*;
 import carro.Carro;
 import usuario.*;
 
@@ -28,6 +29,9 @@ public class Principal {
         // SERVIÇOS OFERECIDOS
         ServicoLavaJato servicoLavagemSimples = new LavagemSimples();
         ServicoLavaJato servicoPolimento = new Polimento();
+        ServicoLavaJato lavagemEnceramento  = new LavagemEnceramento();
+        ServicoLavaJato lavagemCompleta = new LavagemCompleta();
+        ServicoLavaJato lavagemDry = new LavagemADry();
 
         // FORMAS DE PAGAMENTO
         Pagamento pagamentoDinheiro = new PagamentoDinheiro();
@@ -103,6 +107,23 @@ public class Principal {
         System.out.println("Salario: " + func3.getSalario());
         func3.calcularBonificacao(0.3);
         System.out.println("Bonus: " + func3.getBonus());
+        System.out.println("\n");
+
+        //APLICAÇÃO DO DECORATOR
+        // CLIENTE
+        Carro carroLuiz = new Carro("Chevrolet", "Vectra", TipoCarro.SEDA);
+        UsuarioCliente luiz = new UsuarioCliente("Luiz Carlos", "(34) 99666-9999", carroLuiz);
+
+        //ESCOLHA SERVIÇO
+        ServicoLavaJato servico = new Polimento();
+        servico = new LimpezaInternaPremium(servico);
+        servico = new LavagemMotor(servico);
+
+        // AGENDAMENTO
+        Agendamento agendamentoLuiz = new Agendamento(luiz, carroLuiz, servico, notificacaoEmail, LocalDateTime.now());
+        agendamentoLuiz.setPagamento(pagamentoDinheiro);
+        agendamentoLuiz.processarPagamento(1);
+        agendamentoLuiz.exibirDetalhesAgendamento();
     }
 }
 
