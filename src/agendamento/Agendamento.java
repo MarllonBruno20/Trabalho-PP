@@ -1,5 +1,6 @@
 package agendamento;
 
+import notificacao.Notificacao;
 import pagamento.Pagamento;
 import pagamento.PagamentoCartaoCredito;
 import servicos.ServicoLavaJato;
@@ -13,13 +14,15 @@ public class Agendamento {
     private Carro carro;
     private ServicoLavaJato servico;
     private Pagamento pagamento;
+    private Notificacao notificacao;
     private LocalDateTime dataHora;
 
-    public Agendamento(UsuarioCliente cliente, Carro carro, ServicoLavaJato servico, LocalDateTime dataHora) {
+    public Agendamento(UsuarioCliente cliente, Carro carro, ServicoLavaJato servico, Notificacao notificacao, LocalDateTime dataHora) {
         this.cliente = cliente;
         this.carro = carro;
         this.servico = servico;
         this.dataHora = dataHora;
+        this.notificacao = notificacao;
     }
 
     public UsuarioCliente getCliente() {
@@ -79,6 +82,9 @@ public class Agendamento {
                         " | Carro: " + carro.getModelo() +
                         " | Preço Final: R$ " + precoComPagamento);
             }
+
+            String mensagem = "O pagamento para o serviço " + servico.getDescricao() + " foi processado com sucesso!";
+            notificacao.enviarNotificacao(mensagem, cliente.getNome());
         } else {
             System.out.println("Forma de pagamento não definida.");
         }

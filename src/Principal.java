@@ -2,6 +2,9 @@ import agendamento.Agendamento;
 import carro.TipoCarro;
 import estoque.ControleEstoque;
 import estoque.ControleEstoqueImpl;
+import notificacao.Notificacao;
+import notificacao.NotificacaoEmail;
+import notificacao.NotificacaoSms;
 import pagamento.Pagamento;
 import pagamento.PagamentoCartaoCredito;
 import pagamento.PagamentoCartaoDebito;
@@ -20,6 +23,8 @@ import java.util.List;
 public class Principal {
     public static void main(String[] args) {
 
+        System.out.println("\n");
+
         // SERVIÇOS OFERECIDOS
         ServicoLavaJato servicoLavagemSimples = new LavagemSimples();
         ServicoLavaJato servicoPolimento = new Polimento();
@@ -29,6 +34,10 @@ public class Principal {
         Pagamento pagamentoCartaoCredito = new PagamentoCartaoCredito();
         Pagamento pagamentoCartaoDebito = new PagamentoCartaoDebito();
 
+        // NOTIFICAÇÃO
+        Notificacao notificacaoEmail = new NotificacaoEmail();
+        Notificacao notificacaoSms = new NotificacaoSms();
+
         // CLIENTES
         Carro carroAlvaro = new Carro("Fiat", "Argo", TipoCarro.HATCH);
         UsuarioCliente alvaro = new UsuarioCliente("Álvaro", "(34) 99999-9999", carroAlvaro);
@@ -37,20 +46,20 @@ public class Principal {
         UsuarioCliente jefferson = new UsuarioCliente("Jefferson", "(34) 75462-4545", carroJefferson);
 
         // AGENDAMENTOS
-        Agendamento agendamento = new Agendamento(alvaro, carroAlvaro, servicoLavagemSimples, LocalDateTime.now());
+        Agendamento agendamento = new Agendamento(alvaro, carroAlvaro, servicoLavagemSimples, notificacaoEmail, LocalDateTime.now());
         agendamento.setPagamento(pagamentoDinheiro);
         agendamento.processarPagamento(1);
         agendamento.exibirDetalhesAgendamento();
 
         System.out.println("\n");
-        Agendamento agendamentoJefferson = new Agendamento(jefferson, carroJefferson, servicoPolimento, LocalDateTime.now());
+        Agendamento agendamentoJefferson = new Agendamento(jefferson, carroJefferson, servicoPolimento, notificacaoSms, LocalDateTime.now());
         agendamentoJefferson.setPagamento(pagamentoCartaoCredito);
         agendamentoJefferson.processarPagamento(3);
         agendamentoJefferson.exibirDetalhesAgendamento();
 
 
-        // Implementação do Estoque
-        System.out.println("\nImplementação do Estoque\n");
+        // IMPLEMENTAÇÃO DE ESTOQUE
+        System.out.println("\nImplementação do Estoque");
         ControleEstoque controleEstoque = new ControleEstoqueImpl();
         Produto sabao = new ProdutoLimpeza("Sabão para Carro", 15.00, 100);
         Produto cera = new ProdutoLimpeza("Cera", 30.00, 10);
@@ -75,7 +84,8 @@ public class Principal {
         }
 
 
-        //Princípio de Substituição de Liskov
+        //PRINCÍPIO DE SUBSTITUIÇÃO DE LISKOV
+        System.out.println("\nPrincípio de Substituição de Liskov");
         Funcionario func1 = new Funcionario("Alvaro", "3499823409823");
         func1.setSalario(3000d);
         System.out.println("Salario: " + func1.getSalario());
