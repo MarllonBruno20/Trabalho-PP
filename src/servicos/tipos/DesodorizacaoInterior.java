@@ -1,12 +1,19 @@
-package servicos.decorator.adicionais;
+package servicos.tipos;
 
 import carro.TipoCarro;
-import servicos.decorator.ServicoAdicional;
-import servicos.principais.ServicoLavaJato;
+import servicos.base.DecoratorServico;
+import servicos.base.ServicoLavaJato;
 
-public class DesodorizacaoInterior extends ServicoAdicional {
+public class DesodorizacaoInterior extends DecoratorServico {
+
+    // Construtor para adicionar sobre outro serviço
     public DesodorizacaoInterior(ServicoLavaJato servicoLavaJato) {
         super(servicoLavaJato);
+    }
+
+    // Construtor para ser o primeiro serviço
+    public DesodorizacaoInterior() {
+        super(); // Primeiro serviço, sem base
     }
 
     @Override

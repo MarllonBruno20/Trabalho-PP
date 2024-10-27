@@ -11,11 +11,9 @@ import pagamento.PagamentoCartaoDebito;
 import pagamento.PagamentoDinheiro;
 import produto.Produto;
 import produto.ProdutoLimpeza;
-import servicos.decorator.adicionais.CeraAdicional;
-import servicos.decorator.adicionais.LavagemMotor;
-import servicos.decorator.adicionais.LimpezaInternaPremium;
-import servicos.principais.*;
 import carro.Carro;
+import servicos.base.ServicoLavaJato;
+import servicos.tipos.*;
 import usuario.*;
 
 import java.time.LocalDateTime;
@@ -124,6 +122,18 @@ public class Principal {
         agendamentoLuiz.setPagamento(pagamentoDinheiro);
         agendamentoLuiz.processarPagamento(1);
         agendamentoLuiz.exibirDetalhesAgendamento();
+
+        System.out.println("\n");
+
+        ServicoLavaJato servico2 = new LavagemADry();
+        servico2 = new LimpezaInternaPremium(servico2);
+        servico2 = new LavagemMotor(servico2);
+
+        Agendamento agendamentoLuiz2 = new Agendamento(luiz, carroLuiz, servico2, notificacaoEmail, LocalDateTime.now());
+        agendamentoLuiz2.setPagamento(pagamentoDinheiro);
+        agendamentoLuiz2.processarPagamento(1);
+        agendamentoLuiz2.exibirDetalhesAgendamento();
+
     }
 }
 

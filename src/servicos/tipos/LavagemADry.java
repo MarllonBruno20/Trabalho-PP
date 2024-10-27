@@ -1,8 +1,20 @@
-package servicos.principais;
+package servicos.tipos;
 
 import carro.TipoCarro;
+import servicos.base.DecoratorServico;
+import servicos.base.ServicoLavaJato;
 
-public class LavagemADry implements  ServicoLavaJato{
+public class LavagemADry extends DecoratorServico {
+
+    // Construtor para adicionar sobre outro serviço
+    public LavagemADry(ServicoLavaJato servicoLavaJato) {
+        super(servicoLavaJato);
+    }
+
+    // Construtor para ser o primeiro serviço
+    public LavagemADry() {
+        super(); // Primeiro serviço, sem base
+    }
     @Override
     public String getDescricao() {
         return "Lavagem a seco, usando produtos especiais.";

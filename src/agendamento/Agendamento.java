@@ -3,7 +3,7 @@ package agendamento;
 import notificacao.Notificacao;
 import pagamento.Pagamento;
 import pagamento.PagamentoCartaoCredito;
-import servicos.principais.ServicoLavaJato;
+import servicos.base.ServicoLavaJato;
 import carro.Carro;
 import usuario.UsuarioCliente;
 
